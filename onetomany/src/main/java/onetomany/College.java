@@ -1,5 +1,6 @@
 package onetomany;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -15,7 +16,7 @@ public class College {
 	private String pincode;
 
 	@OneToMany
-	private List<Student> student;
+	private List<Student> student = new ArrayList<>();
 	
 	public List<Student> getStudent() {
 		return student;

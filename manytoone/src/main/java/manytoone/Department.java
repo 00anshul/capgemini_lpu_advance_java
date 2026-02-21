@@ -10,7 +10,7 @@ import javax.persistence.SequenceGenerator;
 public class Department {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "number_sequence")
-	@SequenceGenerator(name="number",sequenceName = "number_sequence", initialValue = 1,allocationSize = 1)
+	@SequenceGenerator(name="number_sequence",sequenceName = "number_sequence", initialValue = 1,allocationSize = 1)
 	private int id;
 	private String name;
 	private String mgrname;

@@ -5,12 +5,16 @@
 	version="2.1">
 	<persistence-unit name="postgres"
 		transaction-type="RESOURCE_LOCAL">
+		<class>hospital2.entities.Patient</class>
+		<class>hospital2.entities.MedicalRecord</class>
+		<class>hospital2.entities.Doctor</class>
+		<class>hospital2.entities.Appointment</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
 				value="org.postgresql.Driver" />
 			<!-- DB Driver -->
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:postgresql://localhost:5432/manytoone" />
+				value="jdbc:postgresql://localhost:5432/case_study2" />
 			<!-- DB Name -->
 			<property name="javax.persistence.jdbc.user"
 				value="postgres" />
@@ -21,12 +25,13 @@
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.PostgreSQLDialect" />
 			<!-- DB Dialect -->
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<!-- create / create-drop / update -->
 			<property name="hibernate.show_sql" value="true" />
 			<!-- Show SQL in console -->
 			<property name="hibernate.format_sql" value="true" />
 			<!-- Show SQL formatted -->
+
 		</properties>
 	</persistence-unit>
 </persistence>

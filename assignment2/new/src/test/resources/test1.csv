@@ -1,8 +1,0 @@
-﻿input,expected
-10,even
-20,even
-30,even
-34,even
-32,even
-67,odd
-33,odd
