@@ -1,56 +1,77 @@
 package assignment2mockito;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)   // enables Mockito in JUnit 5
 public class PriceServiceTest {
 
-    @Test
-    void testCalculateFinalPrice_Mobile() {
+    @Mock
+    DiscountRepository discountRepository;   // Mockito creates a fake implementation
 
-        DiscountRepository repo = mock(DiscountRepository.class);
+    PriceService priceService;
 
-        when(repo.getDiscountPercentage("MOB"))
-                .thenReturn(10.0);
-
-        PriceService service = new PriceService(repo);
-
-        double result = service.calculateFinalPrice(1000, "MOB");
-
-        assertEquals(900, result);
-
-        verify(repo).getDiscountPercentage("MOB");
+    @BeforeEach
+    void setup() {
+        priceService = new PriceService(discountRepository);  // inject mock
     }
 
+    // TEST 1 — MOB, Price 1000, Discount 10%, Expected 900
     @Test
-    void testCalculateFinalPrice_Laptop() {
+    void testMobileDiscount() {
+        // ARRANGE — tell mock what to return when called
+        when(discountRepository.getDiscountPercentage("MOB")).thenReturn(10.0);
 
-        DiscountRepository repo = mock(DiscountRepository.class);
+        // ACT — call the real service method
+        double finalPrice = priceService.calculateFinalPrice(1000, "MOB");
 
-        when(repo.getDiscountPercentage("LAP"))
-                .thenReturn(20.0);
+        // ASSERT — verify result
+        assertEquals(900.0, finalPrice);
 
-        PriceService service = new PriceService(repo);
+        // VERIFY — confirm mock method was actually called
+        verify(discountRepository).getDiscountPercentage("MOB");
 
-        double result = service.calculateFinalPrice(2000, "LAP");
-
-        assertEquals(1600, result);
-
-        verify(repo).getDiscountPercentage("LAP");
+        System.out.println("TEST 1 PASSED — MOB final price: " + finalPrice);
     }
 
+    // TEST 2 — LAP, Price 2000, Discount 20%, Expected 1600
     @Test
-    void testRepositoryException() {
+    void testLaptopDiscount() {
+        // ARRANGE
+        when(discountRepository.getDiscountPercentage("LAP")).thenReturn(20.0);
 
-        DiscountRepository repo = mock(DiscountRepository.class);
+        // ACT
+        double finalPrice = priceService.calculateFinalPrice(2000, "LAP");
 
-        when(repo.getDiscountPercentage("MOB"))
-                .thenThrow(new RuntimeException("Repository error"));
+        // ASSERT
+        assertEquals(1600.0, finalPrice);
 
-        PriceService service = new PriceService(repo);
+        // VERIFY
+        verify(discountRepository).getDiscountPercentage("LAP");
 
-        assertThrows(RuntimeException.class, () ->
-                service.calculateFinalPrice(1000, "MOB"));
+        System.out.println("TEST 2 PASSED — LAP final price: " + finalPrice);
+    }
+
+    // BONUS — repository throws exception
+    @Test
+    void testRepositoryThrowsException() {
+        // ARRANGE — tell mock to throw exception
+        when(discountRepository.getDiscountPercentage("UNKNOWN"))
+            .thenThrow(new RuntimeException("Product code not found"));
+
+        // ACT + ASSERT — verify exception is thrown
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            priceService.calculateFinalPrice(1000, "UNKNOWN");
+        });
+
+        assertEquals("Product code not found", exception.getMessage());
+
+        System.out.println("BONUS TEST PASSED — exception: " + exception.getMessage());
     }
 }
