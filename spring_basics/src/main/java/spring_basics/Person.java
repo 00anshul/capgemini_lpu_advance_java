@@ -7,10 +7,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Person {
-	@Autowired
+	
+	//Dependency injection
 	private Mobile m ;
 	@Autowired
 	private Scanner scan;
+	
+	//Constructor Injection
+	Person(Mobile m){
+		this.m = m;
+	}
 	
 public Scanner getScan() {
 		return scan;
@@ -24,9 +30,11 @@ public Mobile getM() {
 		return m;
 	}
 
-	public void setM(Mobile m) {
-		this.m = m;
-	}
+//Setter Injection
+//@Autowired
+//	public void setM(Mobile m) {
+//		this.m = m;
+//	}
 
 void meassage() {
 	System.out.println("hi");

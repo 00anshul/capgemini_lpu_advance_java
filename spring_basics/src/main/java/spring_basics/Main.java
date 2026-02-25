@@ -1,5 +1,7 @@
 package spring_basics;
 
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -23,9 +25,12 @@ public static void main(String[] args) {
 	
 	Person p = ioc.getBean(Person.class);
 	
-	System.out.println(p.getM());
+//	System.out.println(p.getM());
+//	
+//	System.out.println(p.getScan());
 	
-	System.out.println(p.getScan());
+	List<String> list = ioc.getBean(List.class);
+	System.out.println(list);
 }
 
 }
