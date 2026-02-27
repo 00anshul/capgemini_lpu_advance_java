@@ -10,6 +10,12 @@
     <version>42.6.0</version>
     <scope>compile</scope>
 </dependency>
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-api</artifactId>
+    <version>5.11.4</version>
+    <scope>test</scope>
+    </dependency>
 
 </dependencies>
 </project>

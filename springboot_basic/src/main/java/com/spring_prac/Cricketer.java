@@ -1,4 +1,5 @@
-package com.capgemini.springboot_basic;
+package com.spring_prac;
+
 
 public class Cricketer {
 private String name;

@@ -1,4 +1,5 @@
-package com.capgemini.springboot_basic;
+package com.spring_prac;
+
 
 public class Engine {
     private String type;        // e.g. "V8", "V6"

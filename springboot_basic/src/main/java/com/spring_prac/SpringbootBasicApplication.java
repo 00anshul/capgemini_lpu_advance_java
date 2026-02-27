@@ -1,4 +1,5 @@
-package com.capgemini.springboot_basic;
+package com.spring_prac;
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

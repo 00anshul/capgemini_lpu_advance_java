@@ -9,13 +9,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 	
 	@Mock
 	UserDao  daomock;
 	
-	@InjectMocks;
+//	@InjectMocks;
 	UserService service;
 	
 	@Test
