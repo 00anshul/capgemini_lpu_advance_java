@@ -1,7 +1,8 @@
 package assignment.product_management.category;
-
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
 
     @Autowired
-    private CategoryService categoryService;  // ← controller talks to service, not repo directly
+    private CategoryService categoryService;
 
     // POST http://localhost:8080/categories
     @PostMapping
@@ -39,5 +40,12 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public String deleteCategory(@PathVariable int id) {
         return categoryService.deleteCategory(id);
+    }
+
+    // GET http://localhost:8080/categories/paged?page=0&size=5
+    @GetMapping("/paged")
+    public Page<Category> getCategory(@RequestParam int page, @RequestParam int size) {
+        return categoryService.getCategory(page, size);
+ 
     }
 }

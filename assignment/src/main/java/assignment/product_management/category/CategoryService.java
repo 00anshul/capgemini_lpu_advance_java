@@ -1,19 +1,19 @@
 package assignment.product_management.category;
-
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import assignment.product_management.exception.CategoryNotFoundException;
 
-@Service  // ← tells Spring this is a service bean
+@Service
 public class CategoryService {
-
     @Autowired
     private CategoryRepository categoryRepo;
 
     // ADD CATEGORY
     public Category addCategory(Category c) {
-        // business rule — no duplicate category names
         if (categoryRepo.existsByCategoryName(c.getCategoryName())) {
             throw new IllegalArgumentException("Category name already exists: " + c.getCategoryName());
         }
@@ -46,5 +46,10 @@ public class CategoryService {
                     .orElseThrow(() -> new CategoryNotFoundException(id));
         categoryRepo.deleteById(id);
         return "Category " + id + " deleted successfully";
+    }
+
+ 
+    public Page<Category> getCategory(int page, int size) {
+        return categoryRepo.findAll( PageRequest.of(page, size, Sort.by("categoryId").descending()));
     }
 }
