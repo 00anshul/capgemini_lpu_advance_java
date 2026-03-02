@@ -1,12 +1,21 @@
 <html>
 <head>
-login user</head>
+    <title>Login User</title>
+</head>
+
 <body>
+
+    <h2>Login</h2>
+
+    <form action="logincheck" method="post">
+        Email:
+        <input type="email" name="email"><br /><br />
+
+        Password:
+        <input type="password" name="password"><br /><br />
+
+        <input type="submit" value="Login">
+    </form>
+
 </body>
-<form action="logincheck" method="post">
-		Name:<input type="text" name="name"><br /> Email:<input
-			type="email" name="email"><br /> Contact:<input
-			type="number" name="contact"><br /> Password:<input
-			type="password" name="Password"><br /> <input type="submit"
-			name="Register"><br />
-	</form></html>
+</html>
